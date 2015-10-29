@@ -4,6 +4,7 @@ Take control over your app's logging output.
 **Work in Progress - Not all documented features have been implemented!**
 
 **Features**
+
 1. Log format is structured - we use bunyan under the hood to output JSON formatted logs
 2. Log output is streamed to any listeners you setup
 3. Log input is extensible, you can easily flag log messages with indicators such as the current method/subscription, userId, or any other info that's available to your app.
