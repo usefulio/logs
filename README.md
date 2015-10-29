@@ -96,6 +96,7 @@ Services = {
 ```
 
 <!-- XXX -->
+
 For quick & easy configuration of your log output, add the standard-config package:
 ```
 meteor add useful:logs-standard-config
@@ -106,5 +107,15 @@ The standard config package provides some default options and output streams for
 1. Pretty prints info & more critical messages to your console
 2. Stores all log messages in the db
 3. Adds bunyan's default serializers
+
+If you want useful:logs to integrate more aggressively with existing log output you can add the standard-hooks package:
+```
+meteor add useful:logs-standard-hooks
+```
+
+This will improve your logging output by:
+
+1. Hijacking `console.log`
+2. Wrapping Meteor methods & subscriptions in `Log.with`
 
 <!-- /XXX -->
