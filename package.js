@@ -13,12 +13,24 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
-  api.addFiles('logs.js');
+  api.use('underscore');
+  api.use('useful-logs-config', {
+    weak: true
+  });
+  
+  Npm.depends({
+    bunyan: "1.5.1"
+  });
+
+  api.addFiles('output.js', 'server');
+  api.addFiles('logs.js', 'server');
+  api.export('Log');
+  api.export('Logger');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
   api.use('useful:logs');
-  api.addFiles('logs-tests.js');
+  api.addFiles('logs-tests.js', 'server');
 });
