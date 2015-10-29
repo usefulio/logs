@@ -44,12 +44,24 @@ Logger.prototype.child = function (options) {
   return new Logger(options, this);
 };
 
+// XXX some kind of guard to prevent circular references
+Logger.prototype.hijackConsoleLog = function () {
+  var self = this;
+  self._console = {};
+  _.each(['log', 'warn', 'error'], function (level) {
+    self._console[level] = console[level];
+    console[level] = function () {
+      self[level].apply(self, arguments);
+    };
+  });
+};
+
 _.each(['fatal', 'error', 'warn', 'info', 'debug', 'trace'], function (level) {
   Logger.prototype[level] = function () {
     var args = _.toArray(arguments);
     this.processArguments(args);
     return this._logger[level].apply(this._logger, args);
-  }
+  };
 });
 
 var config = Package["useful-logs-config"]
@@ -65,3 +77,4 @@ if (config) {
 }
 
 Log = new Logger(config);
+
