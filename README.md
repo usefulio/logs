@@ -95,7 +95,7 @@ Services = {
 }
 ```
 
-<!-- XXX -->
+# TODO
 
 For quick & easy configuration of your log output, add the standard-config package:
 ```
@@ -117,5 +117,5 @@ This will improve your logging output by:
 
 1. Hijacking `console.log`
 2. Wrapping Meteor methods & subscriptions in `Log.with`
+3. Logging uncaught errors
 
-<!-- /XXX -->
