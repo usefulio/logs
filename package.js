@@ -17,6 +17,9 @@ Package.onUse(function(api) {
   api.use('useful:logs-standard-config', {
     weak: true
   });
+  api.use('useful:logs-standard-hooks', {
+    weak: true
+  });
   
   Npm.depends({
     bunyan: "1.5.1"

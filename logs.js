@@ -44,18 +44,6 @@ Logger.prototype.child = function (options) {
   return new Logger(options, this);
 };
 
-// XXX some kind of guard to prevent circular references
-Logger.prototype.hijackConsoleLog = function () {
-  var self = this;
-  self._console = {};
-  _.each(['log', 'warn', 'error'], function (level) {
-    self._console[level] = console[level];
-    console[level] = function () {
-      self[level].apply(self, arguments);
-    };
-  });
-};
-
 _.each(['fatal', 'error', 'warn', 'info', 'debug', 'trace'], function (level) {
   Logger.prototype[level] = function () {
     var args = _.toArray(arguments);
@@ -80,3 +68,8 @@ if (configPackage && _.isFunction(configPackage.LogsConfig)) {
 }
 
 Log = new Logger(config);
+
+var hooksPackage = Package["useful:logs-standard-hooks"];
+if (hooksPackage && _.isFunction(hooksPackage.LogsHook)) {
+  hooksPackage.LogsHook(Log);
+}

@@ -103,16 +103,3 @@ Tinytest.add('Useful Logs - Log.withContext', function (test) {
   test.equal(LogOutput.next().hostname, __meteor_runtime_config__.ROOT_URL);
   test.equal(LogOutput.next().meteorVersion, __meteor_runtime_config__.meteorRelease);
 });
-
-Tinytest.add('Useful Logs - Log.hijackConsoleLog', function (test) {
-  Log.hijackConsoleLog();
-
-  console.log('y');
-  test.equal(LogOutput.next().msg, 'y');
-  
-  test.equal(LogOutput.next().name, __meteor_runtime_config__.appId);
-  test.equal(LogOutput.next().hostname, __meteor_runtime_config__.ROOT_URL);
-  test.equal(LogOutput.next().meteorVersion, __meteor_runtime_config__.meteorRelease);
-
-  
-});
