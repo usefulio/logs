@@ -64,10 +64,13 @@ _.each(['fatal', 'error', 'warn', 'info', 'debug', 'trace'], function (level) {
   };
 });
 
-var config = Package["useful-logs-config"]
-if (config) {
-  config = config.LogsConfig();
+var configPackage = Package["useful:logs-standard-config"];
+var config;
+if (configPackage && _.isFunction(configPackage.LogsConfig)) {
+  config = configPackage.LogsConfig(bunyan);
 } else {
+  if (configPackage)
+    console.warn('config package does not export LogsConfig global');
   config = {
     streams: [{
       stream: new ConsolePrinter()
@@ -77,4 +80,3 @@ if (config) {
 }
 
 Log = new Logger(config);
-

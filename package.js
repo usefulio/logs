@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('underscore');
-  api.use('useful-logs-config', {
+  api.use('useful:logs-standard-config', {
     weak: true
   });
   
