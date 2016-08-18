@@ -1,6 +1,6 @@
 Package.describe({
   name: 'useful:logs',
-  version: '0.0.1',
+  version: '0.1.0',
   // Brief, one-line summary of the package.
   summary: '',
   // URL to the Git repository containing the source code for this package.
@@ -11,29 +11,30 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.1');
-  api.use('ecmascript');
-  api.use('underscore');
-  api.use('useful:logs-standard-config', {
-    weak: true
-  });
-  api.use('useful:logs-standard-hooks', {
-    weak: true
-  });
-  
-  Npm.depends({
-    bunyan: "1.5.1"
-  });
+  api.use([
+    'ecmascript',
+    'underscore',
+    // XXX mongo should become a weak dependency
+    'mongo',
+  ]);
+  api.use([
+    'mikowals:batch-insert',
+  ]);
 
-  api.addFiles('output.js', 'server');
-  api.addFiles('logs.js', 'server');
+  api.mainModule('logs.js');
+
   api.export('Log');
-  api.export('Logger');
 });
 
 Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
+  api.use([
+    'ecmascript',
+    'underscore',
+    // XXX mongo should become a weak dependency
+    'mongo',
+  ]);
+  api.use('practicalmeteor:mocha');
+
   api.use('useful:logs');
-  api.addFiles('logs-tests.js', 'server');
+  api.mainModule('logs-tests.js');
 });
